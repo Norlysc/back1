@@ -1,4 +1,4 @@
-class Cooperative {
+class cooperative {
   constructor(id, name, members = []) {
     this.id = id;
     this.name = name;
@@ -6,4 +6,4 @@ class Cooperative {
   }
 }
 
-module.exports = Cooperative;
+module.exports = cooperative;
