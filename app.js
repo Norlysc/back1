@@ -3,16 +3,15 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var loansRouter = require("./routes/loans");
-var savingsRouter = require("./routes/savings");
-var cooperativesRouter = require("./routes/cooperatives");
+var indexRouter = require("./project-root/routes/index");
+var usersRouter = require("./project-root/routes/users");
+var cooperativesRouter = require("./project-root/routes/cooperatives");
 
 var app = express();
 
 // Configuración de la vista
-app.set("views", path.join(__dirname, "views"));
+var path = require('path');
+app.set("views", "./project-root/views");
 app.set("view engine", "ejs");
 
 // Middlewares
@@ -24,9 +23,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Enrutadores
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/loans", loansRouter);
-app.use("/savings", savingsRouter);
-app.use("/cooperatives", cooperativesRouter);
+app.use("/usuarios", usersRouter);
+app.use("/cooperativas", cooperativesRouter);
+
+
+const PUERTO = process.env.PORT || 3000;
+app.listen(PUERTO, () => {
+  console.log(`El servidor esta escuchando en el puerto http://localhost:${PUERTO}`);
+});
 
 module.exports = app;
