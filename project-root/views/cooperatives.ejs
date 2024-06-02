@@ -9,7 +9,53 @@
 
     <h2>Existing Cooperatives</h2>
     <ul>
+<<<<<<< HEAD
       <% cooperativas.forEach(coop => { %>
+=======
+      <% cooperatives.forEach(coop => { %><!DOCTYPE html>
+      <html>
+        <head>
+          <title>Cooperatives</title>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/style.css"
+          />
+        </head>
+        <body>
+          <h1>Cooperatives</h1>
+
+          <h2>Existing Cooperatives</h2>
+          <ul>
+            <% cooperativas.forEach(coop => { %>
+            <li>
+              <h3><%= coop.nombre %></h3>
+              <p>ID: <%= coop.id %></p>
+              <p>usuarios: <%= coop.usuarios %></p>
+              <form
+                action="/api/cooperatives/<%= coop.id %>?_method=DELETE"
+                method="POST"
+              >
+                <button type="submit">Delete</button>
+              </form>
+            </li>
+            <% }); %>
+          </ul>
+
+          <h2>Add a New Cooperative</h2>
+          <form action="/api/cooperatives" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required />
+            <label for="usuarios">usuarios (comma-separated):</label>
+            <input type="text" id="usuarios" name="usuarios" />
+            <button type="submit">Add Cooperative</button>
+          </form>
+
+          <a href="/">Back to Home</a>
+        </body>
+      </html>
+
+>>>>>>> a1b1b456de281087d221fcc4ccea679ec390669a
       <li>
         <h3><%= coop.nombre %></h3>
         <p>ID: <%= coop.id %></p>
