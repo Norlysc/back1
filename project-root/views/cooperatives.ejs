@@ -9,11 +9,11 @@
 
     <h2>Existing Cooperatives</h2>
     <ul>
-      <% cooperatives.forEach(coop => { %>
+      <% cooperativas.forEach(coop => { %>
       <li>
-        <h3><%= coop.name %></h3>
+        <h3><%= coop.nombre %></h3>
         <p>ID: <%= coop.id %></p>
-        <p>Members: <%= coop.members.join(", ") %></p>
+        <p>usuarios: <%= coop.usuarios %></p>
         <form
           action="/api/cooperatives/<%= coop.id %>?_method=DELETE"
           method="POST"
@@ -28,8 +28,8 @@
     <form action="/api/cooperatives" method="POST">
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required />
-      <label for="members">Members (comma-separated):</label>
-      <input type="text" id="members" name="members" />
+      <label for="usuarios">usuarios (comma-separated):</label>
+      <input type="text" id="usuarios" name="usuarios" />
       <button type="submit">Add Cooperative</button>
     </form>
 

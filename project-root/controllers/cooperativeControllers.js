@@ -1,25 +1,41 @@
-const CooperativeModel = require("../models/cooperatives");
+const CooperativeModel = require("../models/users").datos.users;
+
 
 class CooperativeController {
   addCooperative(req, res) {
-    const { name, members } = req.body;
-    const newCooperative = CooperativeModel.createCooperative(name, members);
-    res.status(201).json(newCooperative);
+    let UsuarioID = req.params.id;
+    let nuevaCooperativa = req.body;
+    const user = CooperativeModel.find((user) => user.id == UsuarioID);
+
+    if (user) {
+     user.cooperativas.push(nuevaCooperativa);
+      console.log(nuevaCooperativa);
+      
+      return res.send(CooperativeModel);
+    } else {
+      return res.send("No se encontró");
+    }
   }
 
-  editCooperative(req, res) {
-    const { id } = req.params;
-    const { name, members } = req.body;
-    const updatedCooperative = CooperativeModel.updateCooperative(
-      id,
-      name,
-      members
-    );
-    if (updatedCooperative) {
-      res.status(200).json(updatedCooperative);
-    } else {
-      res.status(404).send("Cooperative not found");
+  deleteUserFromCooperative(req, res) {
+    const id = req.params.id; // Convertir a entero
+    const cooperativaID = req.params.coop; // Convertir a entero
+
+    // Buscar el usuario por su id
+    const usuario = CooperativeModel.find((user) => user.id == id);
+    if (usuario) {
+      // Buscar la cuenta por su id dentro de las cuentas del usuario
+      const cooperativaIndex = usuario.cooperativas.findIndex(
+        (coop) => coop.id == cooperativaID
+      );
+      if (cooperativaIndex !== -1) {
+        // Eliminar la cuenta encontrada
+        usuario.cooperativas.splice(cooperativaIndex, 1);
+        res.send(CooperativeModel);
+        return;
+      }
     }
+    res.status(404).send("Usuario o cuenta no encontrados");
   }
 
   deleteCooperative(req, res) {

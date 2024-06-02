@@ -1,14 +1,87 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>User Profile</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <h1>User Profile</h1>
-    <p>Name: <%= user.name %></p>
-    <p>Email: <%= user.email %></p>
-    <p>Balance: <%= user.balance %></p>
-    <a href="/">Back to Home</a>
-  </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+</head>
+<body>
+    <h1>Sistema Bancario Social</h1>
+    <% if (typeof user !== 'undefined') { %>
+        <h3>Bienvenido, <%= user.nombre %></h3>
+        <h2>Nombre: <%= user.nombre %></h2>
+        <p>ID: <%= user.id %></p>
+        <h3>Cuentas:</h3>
+        <ul>
+            <% user.cuentas.forEach(cuenta => { %>
+                <li>ID: <%= cuenta.id %></li>
+                <p>Tipo: <%= cuenta.tipo %></p>
+                <p>Tasa de interes: <%= cuenta.tasa_interes %></p>
+                <p>Balance: <%= cuenta.balance %></p>
+                <p>Fecha de Pago: <%= cuenta.fecha_proximo_pago %></p>
+
+            <% }) %>
+        </ul>
+
+        <% 
+        let totalTasasInteres = 0;
+        let totalMontos = 0;
+        user.cuentas.forEach(cuenta => {
+            totalTasasInteres += cuenta.tasa_interes;
+            totalMontos += cuenta.balance;
+        });
+        let promedioTasasInteres = totalTasasInteres / user.cuentas.length;
+        let promedioMontos = totalMontos / user.cuentas.length;
+        %>
+
+        <h3>Promedio de Tasas de Interés: <%= promedioTasasInteres %></h3>
+        <h3>Promedio de Montos: <%= promedioMontos %></h3>
+
+        <h3>Cooperativas:</h3>
+        <% user.cooperativas.forEach(cooperativa => { %>
+            <li>ID: <%= cooperativa.id %></li>
+            <p>Nombre: <%= cooperativa.nombre %></p>
+            <p>Tipo: <%= cooperativa.Tipo %></p>
+            <p>Credito: <%= cooperativa.credito %></p>
+        <% }) %>
+    <% } else if (typeof datos !== 'undefined') { %>
+        <h3>Información adicional: <%= datos.informacion %></h3>
+        <% datos.forEach(user => { %>
+            <h2>Nombre: <%= user.nombre %></h2>
+            <p>ID: <%= user.id %></p>
+            <h3>Cuentas:</h3>
+            <ul>
+                <% user.cuentas.forEach(cuenta => { %>
+                    <li>ID: <%= cuenta.id %>, Tipo: <%= cuenta.tipo %>, Balance: <%= cuenta.balance %>, Tasa de Interés: <%= cuenta.tasa_interes %>, Próximo Pago: <%= cuenta.fecha_proximo_pago %></li>
+                <% }) %>
+            </ul>
+            <% 
+        let totalTasasInteres = 0;
+        let totalMontos = 0;
+        user.cuentas.forEach(cuenta => {
+            totalTasasInteres += cuenta.tasa_interes;
+            totalMontos += cuenta.balance;
+        });
+        let promedioTasasInteres = totalTasasInteres / user.cuentas.length;
+        let promedioMontos = totalMontos / user.cuentas.length;
+        %>
+
+        <h3>Promedio de Tasas de Interés: <%= promedioTasasInteres %></h3>
+        <h3>Promedio de Montos: <%= promedioMontos %></h3>
+            <h3>Cooperativas:</h3>
+            <ul>
+                <% user.cooperativas.forEach(cooperativa => { %>
+                    <li>ID: <%= cooperativa.id %></li>
+                    <li>Nombre: <%= cooperativa.nombre %></li>
+                    <li>Tipo: <%= cooperativa.Tipo %></li>
+                    <li>Credito: <%= cooperativa.credito %></li>
+                <% }) %>
+            </ul>
+        <% }) %>
+    <% } else { %>
+        <h3>No se encontró el usuario</h3>
+    <% } %>
+    <a href="/">Volver a inicio</a>
+</body>
 </html>
