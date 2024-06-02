@@ -1,0 +1,104 @@
+GET http://localhost:3000/
+//Para el inicio del servidor
+
+###
+// Para Ingresar un usuario
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+  "id": 6,
+  "nombre": "Marta",
+  "cuentas": [
+    {
+      "id": 3,
+      "tipo": "ahorro",
+      "balance": 1500,
+      "tasa_interes": 0.03,
+      "fecha_proximo_pago": "2024-06-05"
+    }
+  ],
+  "cooperativas": [
+    {
+      "id": 4,
+      "nombre": "Cooperativa 1",
+      "Tipo": "Autocredito de automovil",
+      "credito": 1000
+    }
+  ]
+}
+
+###
+// Para ingresar cuentas de ahorro
+POST http://localhost:3000/usuarios/1
+Content-Type: application/json
+
+{
+  "id": 3,
+  "tipo": "ahorro",
+  "balance": 1500,
+  "tasa_interes": 0.03,
+  "fecha_proximo_pago": "2024-06-05"
+}
+
+###
+// Para ingresar cuentas de prestamo
+POST http://localhost:3000/usuarios/2
+Content-Type: application/json
+
+{
+  "id": 5,
+  "tipo": "prestamo",
+  "balance": -3000,
+  "tasa_interes": 0.04,
+  "fecha_proximo_pago": "2024-06-20"
+}
+
+###
+//Para ingresar una cooperativa
+POST http://localhost:3000/cooperativas/1
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nombre": "Cooperativa 1",
+  "Tipo": "Autocredito de automovil",
+  "credito": 1000
+}
+
+###
+// Para editar un usuario y/o su cuenta
+PUT http://localhost:3000/usuarios/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "nombre": "Marcos",
+  "cuentas": [
+    {
+      "id": 3,
+      "tipo": "prestamo",
+      "balance": 1500,
+      "tasa_interes": 0.03,
+      "fecha_proximo_pago": "2024-06-15"
+    }
+  ],
+  "cooperativas": [
+    {
+      "id": 2,
+      "nombre": "Cooperativa 1"
+    }
+  ]
+}
+
+###
+// Para eliminar una cuenta
+DELETE http://localhost:3000/usuarios/1/cuentas/1
+
+###
+// Para eliminar un usuario
+DELETE http://localhost:3000/usuarios/1
+
+###
+//Eliminar cooperativa de usuario
+DELETE http://localhost:3000/cooperativas/5/2
